@@ -11,6 +11,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <SystemType/>
+  },
+  {
+    path: "/purecomputing",
+    element: <PureComputing/>
   }
 ])
 
