@@ -13,6 +13,9 @@ module.exports = {
         'app-yellow':'#F8C542',
         'app-red':'#761638',
         'app-white':'#C7C7C7'
+      },
+      fontFamily:{
+        'montserrat':['Montserrat']
       }
     },
   },
