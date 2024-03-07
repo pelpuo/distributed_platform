@@ -1,5 +1,7 @@
 import React from 'react'
 import FileUpload from '../components/FileUpload'
+import CustomSlider from '../components/CustomSlider'
+// import Slider, {range} from "rc-slider"
 
 function PureComputing() {
   return (
@@ -8,6 +10,7 @@ function PureComputing() {
             <h1 className='text-app-white text-xl text-app-yellow text-center font-semibold mb-8'>Cluster Configuration</h1>
             <div className='bg-app-dark p-12 self-center rounded-xl'>
                 <div className='flex flex-col'>
+                    <CustomSlider range={40}/>
                     <FileUpload prompt="Compute File (*.c)"/>
                     <FileUpload prompt="Configuration File (*.h)"/>
                 </div>
