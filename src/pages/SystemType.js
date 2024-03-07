@@ -21,7 +21,7 @@ function SystemType() {
           System Type
         </h1>
         <div className="bg-app-dark p-8 self-center rounded-xl">
-          <div className="flex">
+          <div className="grid grid-cols-3 gap-4">
             <ClusterButton name="Pure Computing" type="pure" />
             <ClusterButton name="Hybrid Computing" type="hybrid" />
             <ClusterButton name="Edge Computing" type="edge" />
@@ -30,7 +30,7 @@ function SystemType() {
         <button
           onClick={(e) => nextClick(e)}
           className={`p-4 w-60 mt-8 self-end text-app-white rounded text-md ${
-            systemType
+            systemType && systemType==="pure"
               ? "bg-app-red hover:bg-app-yellow hover:text-app-red"
               : "bg-app-lighter-dark"
           } mb-3 ease-in-out duration-300 font-semibold`}

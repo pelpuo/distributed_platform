@@ -9,7 +9,7 @@
   --app-white: #C7C7C7;
 
   --max-width: 1300px;
-  --min-height: 100vh;
+  --min-height: 90vh;
 }
 
 body{
@@ -33,4 +33,8 @@ body{
   align-items: center;
   justify-content: center;
   background-color: var(--app-black);
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

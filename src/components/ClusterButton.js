@@ -16,14 +16,14 @@ function ClusterButton(props) {
 
   return (
     <div
-      className="bg-app-lighter-dark m-4 p-4 rounded-xl drop-shadow-md"
+      className="bg-app-lighter-dark m-4 p-4 rounded-xl drop-shadow-xl"
       onClick={(e) => handleChange(e)}
     >
       <div
         className={
           props.type === systemType
-            ? "flex flex-col items-center rounded-lg p-6 border-2 border-app-yellow"
-            : "flex flex-col items-center border-2 border-app-lighter-dark rounded-lg p-6 hover:border-app-yellow ease-in-out duration-300"
+            ? "flex flex-col items-center rounded-xl px-6 py-8 border-2 border-app-yellow"
+            : "flex flex-col items-center border-2 border-app-lighter-dark rounded-xl px-6 py-8 hover:border-app-yellow ease-in-out duration-300"
         }
       >
         {props.type === "pure" && (

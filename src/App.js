@@ -7,6 +7,7 @@ import PureComputing from "./pages/PureComputing";
 import { ConfigProvider } from "./contexts/ConfigContext";
 
 import React from "react";
+import NavBar from "./components/NavBar";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,9 @@ function App() {
   return (
     <ConfigProvider>
       <div className="App-outer font-montserrat">
+          <div className="justify-self-start w-full">
+            <NavBar/>
+          </div>
         <div className="App">
           <RouterProvider router={router} />
         </div>
