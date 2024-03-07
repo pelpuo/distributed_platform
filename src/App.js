@@ -1,31 +1,34 @@
-import "./App.css"
+import "./App.css";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import SystemType from "./pages/SystemType"
-import PureComputing from "./pages/PureComputing"
+import SystemType from "./pages/SystemType";
+import PureComputing from "./pages/PureComputing";
+import { ConfigProvider } from "./contexts/ConfigContext";
 
-import React from 'react'
+import React from "react";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <SystemType/>
+    element: <SystemType />,
   },
   {
     path: "/purecomputing",
-    element: <PureComputing/>
-  }
-])
+    element: <PureComputing />,
+  },
+]);
 
 function App() {
   return (
-    <div className='App-outer font-montserrat'>
-      <div className='App'>
-        <RouterProvider router={router} />
+    <ConfigProvider>
+      <div className="App-outer font-montserrat">
+        <div className="App">
+          <RouterProvider router={router} />
+        </div>
       </div>
-    </div>
-  )
+    </ConfigProvider>
+  );
 }
 
-export default App
+export default App;

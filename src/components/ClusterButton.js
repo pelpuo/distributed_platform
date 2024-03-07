@@ -1,20 +1,61 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import { HiChip } from "react-icons/hi";
 import { RiRouterFill } from "react-icons/ri";
 import { MdOutlineDeveloperBoard } from "react-icons/md";
 
+import { useConfig } from "../contexts/ConfigContext";
+
 function ClusterButton(props) {
+  const { systemType, setSystemType } = useConfig();
+
+  const handleChange = (e) => {
+    setSystemType(props.type);
+  };
+
+  useEffect(() => {}, [systemType]);
+
   return (
-    <div className='bg-app-lighter-dark m-4 p-4 rounded-xl drop-shadow-md'>
-        <div className={props.selected? 'flex flex-col items-center rounded-lg p-6 border-app-yellow': 
-                                        'flex flex-col items-center border-2 border-app-lighter-dark rounded-lg p-6 hover:border-app-yellow ease-in-out duration-300'} >
-            {props.type == "pure" && (<HiChip size={72} color={props.selected ?'#F8C542' : '#949393'}/>)}
-            {props.type == "hybrid" && (<MdOutlineDeveloperBoard size={72} color={props.selected ?'#F8C542' : '#949393'}/>)}
-            {props.type == "edge" && (<RiRouterFill size={72} color={props.selected ?'#F8C542' : '#949393'}/>)}
-            <h1 className={props.selected?'text-app-yellow mt-2':'text-app-gray mt-2'}>{props.name}</h1>
-        </div>
+    <div
+      className="bg-app-lighter-dark m-4 p-4 rounded-xl drop-shadow-md"
+      onClick={(e) => handleChange(e)}
+    >
+      <div
+        className={
+          props.type === systemType
+            ? "flex flex-col items-center rounded-lg p-6 border-2 border-app-yellow"
+            : "flex flex-col items-center border-2 border-app-lighter-dark rounded-lg p-6 hover:border-app-yellow ease-in-out duration-300"
+        }
+      >
+        {props.type === "pure" && (
+          <HiChip
+            size={72}
+            color={props.type === systemType ? "#F8C542" : "#949393"}
+          />
+        )}
+        {props.type === "hybrid" && (
+          <MdOutlineDeveloperBoard
+            size={72}
+            color={props.type === systemType ? "#F8C542" : "#949393"}
+          />
+        )}
+        {props.type === "edge" && (
+          <RiRouterFill
+            size={72}
+            color={props.type === systemType ? "#F8C542" : "#949393"}
+          />
+        )}
+        <h1
+          className={
+            props.type === systemType
+              ? "text-app-yellow mt-2"
+              : "text-app-gray mt-2"
+          }
+        >
+          {props.name}
+        </h1>
+      </div>
     </div>
-  )
+  );
 }
 
-export default ClusterButton
+export default ClusterButton;
