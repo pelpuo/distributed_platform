@@ -3,7 +3,7 @@ import FileUpload from "../components/FileUpload";
 import CustomSlider from "../components/CustomSlider";
 import { useNavigate } from "react-router-dom";
 
-function HybridComputing() {
+function EdgeComputing() {
   const [nodes, setNodes] = useState(1);
   const [configFile, setConfigFile] = useState(null);
   const [computeFile, setComputeFile] = useState(null);
@@ -39,20 +39,10 @@ function HybridComputing() {
         <div className="bg-app-dark p-12 self-center rounded-xl">
           <div className="flex flex-col">
             <CustomSlider
-              prompt="Number of FPGAs"
+              prompt="Number of device connected"
               range={40}
               value={nodes}
               setValue={setNodes}
-            />
-            <FileUpload
-              prompt="Compute File (*.c)"
-              file={configFile}
-              setFile={setConfigFile}
-            />
-            <FileUpload
-              prompt="Configuration File (*.h)"
-              file={computeFile}
-              setFile={setComputeFile}
             />
           </div>
         </div>
@@ -79,4 +69,4 @@ function HybridComputing() {
   );
 }
 
-export default HybridComputing;
+export default EdgeComputing;
