@@ -39,7 +39,7 @@ function EdgeComputing() {
         <div className="bg-app-dark p-12 self-center rounded-xl">
           <div className="flex flex-col">
             <CustomSlider
-              prompt="Number of device connected"
+              prompt="Number of connected devices"
               range={40}
               value={nodes}
               setValue={setNodes}
