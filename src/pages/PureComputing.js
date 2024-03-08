@@ -4,6 +4,7 @@ import CustomSlider from "../components/CustomSlider";
 // import {alert} from "react-alert"
 import { useConfig } from "../contexts/ConfigContext";
 import { useNavigate } from "react-router-dom";
+import FadeLoader from "react-spinners/FadeLoader";
 
 const apiurl = "http://localhost:8432"
 
@@ -21,7 +22,7 @@ function PureComputing() {
   } = useConfig();
 
   const [filled, setFilled] = useState(false);
-  const [btnActive, setBtnActive] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -37,7 +38,7 @@ function PureComputing() {
 
       console.log(data)
 
-      setBtnActive(false)
+      setLoading(true)
       fetch(`${apiurl}/upload_scenario?nodes=${nodes}`, {
         method: 'POST',
         // headers:{
@@ -52,7 +53,7 @@ function PureComputing() {
         return response.json()
       })
       .then(data =>{
-        setBtnActive(true)
+        setLoading(false)
         console.log(data);
         alert("Upload Completed Successfully");
 
@@ -64,7 +65,7 @@ function PureComputing() {
         navigate("/");
       })
       .catch(error =>{
-        setBtnActive(true)
+        setLoading(false)
         alert(error.message);
       })
     }
@@ -76,8 +77,12 @@ function PureComputing() {
     }
   },[systemType, nodes, configFile, computeFile])
 
+  useEffect(()=>{
+  },[loading])
+
   return (
     <div className="flex flex-col items-center justify-center w-full p-2">
+      {loading && <div className="z-30 bg-app-dark w-full h-full absolute flex items-center justify-center opacity-60"><FadeLoader color="#F8C542" loading={loading} size={64} /></div>}
       <div className="flex flex-col justify-center">
         <h1 className="text-xl text-app-yellow text-center font-semibold mb-8">
           Cluster Configuration
@@ -111,7 +116,7 @@ function PureComputing() {
           </button>
           <button
             onClick={(e) => uploadClick(e)}
-            className={`p-4 w-60 mt-8 self-end text-app-white rounded text-md ${filled && btnActive?'bg-app-red hover:bg-app-yellow hover:text-app-red' : 'bg-app-lighter-dark'} mb-3 ease-in-out duration-300 font-semibold`}
+            className={`p-4 w-60 mt-8 self-end text-app-white rounded text-md ${filled && !loading?'bg-app-red hover:bg-app-yellow hover:text-app-red' : 'bg-app-lighter-dark'} mb-3 ease-in-out duration-300 font-semibold`}
           >
             Upload
           </button>
