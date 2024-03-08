@@ -3,6 +3,8 @@ import FileUpload from "../components/FileUpload";
 import CustomSlider from "../components/CustomSlider";
 // import {alert} from "react-alert"
 
+const apiurl = "http://10.0.0.254:8432"
+
 import { useConfig } from "../contexts/ConfigContext";
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +20,7 @@ function PureComputing() {
   } = useConfig();
 
   const [filled, setFilled] = useState(false);
+  const [btnActive, setBtnActive] = useState(false);
 
   const navigate = useNavigate();
 
@@ -25,10 +28,20 @@ function PureComputing() {
     navigate("/");
   };
 
-  const uploadClick = (e) => {
+  const uploadClick = async (e) => {
     if (filled) {
-      alert("Upload Complete");
-      navigate("/");
+      fetch(`${apiurl}/upload_scenario`, {
+        method: 'POST',
+        headers:{
+          'Content-Type':'application/json',
+        },
+      })
+      .then(response=>response.json())
+      .then(data =>{
+        console.log(data);
+        alert("Upload Complete");
+        navigate("/");
+      })
     }
   };
 
@@ -73,7 +86,7 @@ function PureComputing() {
           </button>
           <button
             onClick={(e) => uploadClick(e)}
-            className={`p-4 w-60 mt-8 self-end text-app-white rounded text-md ${filled?'bg-app-red hover:bg-app-yellow hover:text-app-red' : 'bg-app-lighter-dark'} mb-3 ease-in-out duration-300 font-semibold`}
+            className={`p-4 w-60 mt-8 self-end text-app-white rounded text-md ${filled && btnActive?'bg-app-red hover:bg-app-yellow hover:text-app-red' : 'bg-app-lighter-dark'} mb-3 ease-in-out duration-300 font-semibold`}
           >
             Upload
           </button>
