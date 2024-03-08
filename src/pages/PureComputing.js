@@ -2,11 +2,11 @@ import React, {useState, useEffect} from "react";
 import FileUpload from "../components/FileUpload";
 import CustomSlider from "../components/CustomSlider";
 // import {alert} from "react-alert"
+import { useConfig } from "../contexts/ConfigContext";
+import { useNavigate } from "react-router-dom";
 
 const apiurl = "http://10.0.0.254:8432"
 
-import { useConfig } from "../contexts/ConfigContext";
-import { useNavigate } from "react-router-dom";
 
 function PureComputing() {
   const {
@@ -20,7 +20,7 @@ function PureComputing() {
   } = useConfig();
 
   const [filled, setFilled] = useState(false);
-  const [btnActive, setBtnActive] = useState(false);
+  const [btnActive, setBtnActive] = useState(true);
 
   const navigate = useNavigate();
 
@@ -30,14 +30,21 @@ function PureComputing() {
 
   const uploadClick = async (e) => {
     if (filled) {
-      fetch(`${apiurl}/upload_scenario`, {
+      var data = new FormData()
+      data.append("config_file", configFile)
+      data.append("compute_file", computeFile)
+
+      setBtnActive(false)
+      fetch(`${apiurl}/upload_scenario?nodes=${nodes}`, {
         method: 'POST',
         headers:{
           'Content-Type':'application/json',
         },
+        body: data
       })
       .then(response=>response.json())
       .then(data =>{
+        setBtnActive(true)
         console.log(data);
         alert("Upload Complete");
         navigate("/");
@@ -85,6 +92,7 @@ function PureComputing() {
             Back
           </button>
           <button
+            active={btnActive}
             onClick={(e) => uploadClick(e)}
             className={`p-4 w-60 mt-8 self-end text-app-white rounded text-md ${filled && btnActive?'bg-app-red hover:bg-app-yellow hover:text-app-red' : 'bg-app-lighter-dark'} mb-3 ease-in-out duration-300 font-semibold`}
           >

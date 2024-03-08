@@ -35,7 +35,7 @@ function SystemType() {
         <button
           onClick={(e) => nextClick(e)}
           className={`p-4 w-60 mt-8 self-end text-app-white rounded text-md ${
-            systemType && systemType==="pure" || systemType=="hybrid" || systemType=="edge"
+            systemType && (systemType==="pure" || systemType==="hybrid" || systemType==="edge")
               ? "bg-app-red hover:bg-app-yellow hover:text-app-red"
               : "bg-app-lighter-dark"
           } mb-3 ease-in-out duration-300 font-semibold`}
