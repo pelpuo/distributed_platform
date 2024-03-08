@@ -6,7 +6,7 @@ import { useConfig } from "../contexts/ConfigContext";
 import { useNavigate } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader";
 
-const apiurl = "http://localhost:8432"
+const apiurl = "http://10.218.105.130:8432"
 
 
 function PureComputing() {
