@@ -5,12 +5,13 @@ import CustomSlider from "../components/CustomSlider";
 import { useConfig } from "../contexts/ConfigContext";
 import { useNavigate } from "react-router-dom";
 
-const apiurl = "http://10.0.0.254:8432"
+const apiurl = "http://localhost:8432"
 
 
 function PureComputing() {
   const {
     systemType,
+    setSystemType,
     nodes,
     setNodes,
     configFile,
@@ -34,20 +35,37 @@ function PureComputing() {
       data.append("config_file", configFile)
       data.append("compute_file", computeFile)
 
+      console.log(data)
+
       setBtnActive(false)
       fetch(`${apiurl}/upload_scenario?nodes=${nodes}`, {
         method: 'POST',
-        headers:{
-          'Content-Type':'application/json',
-        },
+        // headers:{
+        //   'Content-Type':'multipart/form-data; boundary=--WebKitFormBoundaryfgtsKTYLsT7PNUVD',
+        // },
         body: data
       })
-      .then(response=>response.json())
+      .then(response=>{
+        if(response.status !== 200){
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+        return response.json()
+      })
       .then(data =>{
         setBtnActive(true)
         console.log(data);
-        alert("Upload Complete");
+        alert("Upload Completed Successfully");
+
+        setNodes(1);
+        setSystemType(null);
+        setComputeFile(null);
+        setConfigFile(null);
+
         navigate("/");
+      })
+      .catch(error =>{
+        setBtnActive(true)
+        alert(error.message);
       })
     }
   };
@@ -74,13 +92,13 @@ function PureComputing() {
             />
             <FileUpload
               prompt="Compute File (*.c)"
-              file={configFile}
-              setFile={setConfigFile}
+              file={computeFile}
+              setFile={setComputeFile}
             />
             <FileUpload
               prompt="Configuration File (*.h)"
-              file={computeFile}
-              setFile={setComputeFile}
+              file={configFile}
+              setFile={setConfigFile}
             />
           </div>
         </div>
@@ -92,7 +110,6 @@ function PureComputing() {
             Back
           </button>
           <button
-            active={btnActive}
             onClick={(e) => uploadClick(e)}
             className={`p-4 w-60 mt-8 self-end text-app-white rounded text-md ${filled && btnActive?'bg-app-red hover:bg-app-yellow hover:text-app-red' : 'bg-app-lighter-dark'} mb-3 ease-in-out duration-300 font-semibold`}
           >

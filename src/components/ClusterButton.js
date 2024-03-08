@@ -47,8 +47,8 @@ function ClusterButton(props) {
         <h1
           className={
             props.type === systemType
-              ? "text-app-yellow mt-2"
-              : "text-app-gray mt-2"
+              ? "text-app-yellow mt-2 text-center"
+              : "text-app-gray mt-2 text-center"
           }
         >
           {props.name}
